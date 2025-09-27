@@ -1,1 +1,1 @@
-# Star-Checker
+# Star Checker
