@@ -1,5 +1,6 @@
 import os, requests, time, random, string, datetime, json, msvcrt, sys
 from wonderwords import RandomWord
+from updater import checkupdate, update
 
 ########### Default Configuration ###########
 
@@ -611,19 +612,15 @@ def Start():
             print("config.json created with default settings!")
         data = default_config
 
-    print(f"Version: {data['version']}")
-    print("Checking for new version")
+    output = checkupdate()
+    
+    userinput = input(output)
 
-    r = requests.get("https://pastebin.com/raw/1wPCFR91")
-    if r.status_code == 200:
-        if r.text == data['version']:
-            print("Your on the latest version")
-        else:
-            print(f"New version availble! {data['version']} --> {r.text}")
+    if userinput.lower() == 'y':
+        update()
+        exit()
     else:
-        print("Error checking for new version")
-    input("Press enter to continue...")
-    Main()
+        Main()
 
 if __name__ == "__main__": 
     Start()
